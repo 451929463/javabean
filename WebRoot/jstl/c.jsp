@@ -26,13 +26,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     This is my <font color="red">jstl</font> page. <br>
 
-  	<c:set var="core" value="<script>alert('12345');</script>" scope="request"></c:set>
+  	<c:set var="core" value="<script>alert('12345');
+  	</script>" scope="request"></c:set>
   	<c:out value="core"></c:out>
   	<c:out value="${core}" escapeXml="true"></c:out>
   	<c:out value="${sss }" default="sssbbb"/>
+  	<br>----------------------------------------------
   	<c:url value="/index.jsp">
   		<c:param name="abc" value="def"></c:param>
   	</c:url>
-  	<a href="<c:url value="/index.jsp">">return</a>
+  	<br>
+  	<a href="<c:url value="/index.jsp"><c:param name="abc" value="def"></c:param></c:url>">123</a>
+  	------------------------------------------------<br>
+  	<c:set var="a" value="101"></c:set>
+  	<c:if test="${not empty a}">
+  		<c:out value="${a }"></c:out>
+  	</c:if>
+  	<br>++++++++++++++++++++++++++++++<br>
+	<c:choose>
+		<c:when test="${a<60 || a == 60 }">"不及格"</c:when>
+		<c:when test="${a>60 || a < 100 }">"及格"</c:when>
+		<c:otherwise>"异常"</c:otherwise>
+	</c:choose>
+	<%
+	String[] str = {"123","456","789"};
+	request.setAttribute("str", str);
+	%>
+	<c:forEach var="i" begin="0" end="20" step="2">
+		...<c:out value="${i }"></c:out>
+	</c:forEach>
+	<c:forEach items="${str }" var="s" varStatus="ss">
+		${ss.index }----- ${ss.count}---${ss.current}<br>
+	</c:forEach>
   </body>
 </html>
